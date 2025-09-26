@@ -16,10 +16,7 @@ public class UserValidationService {
             return userServiceWebClient.get().uri("/api/user/{userId}/validate", userId).retrieve()
                     .bodyToMono(Boolean.class).block();
         } catch (WebClientResponseException e) {
-            e.printStackTrace();
+            throw new RuntimeException("exception occured while validating user");
         }
-
-        return false;
     }
-
 }
