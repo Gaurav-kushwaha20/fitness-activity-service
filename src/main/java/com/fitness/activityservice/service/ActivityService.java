@@ -40,7 +40,7 @@ public class ActivityService {
         try {
             kafkaTemplate.send(topicName, savedActivity.getUserId(), savedActivity);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("error while sending the data to kafka"+ e.getMessage());
         }
         return mapToResponse(savedActivity);
     }
@@ -53,6 +53,7 @@ public class ActivityService {
         response.setDuration(activity.getDuration());
         response.setCaloriesBurned(activity.getCaloriesBurned());
         response.setAdditionalMetrics(activity.getAdditionalMetrics());
+        response.setStartTime(activity.getStartTime());
         response.setCreatedAt(activity.getCreatedAt());
         response.setUpdatedAt(activity.getUpdatedAt());
         return response;
